@@ -1,5 +1,8 @@
 package Easy.LongestCommonPrefix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Solution {
 
     public String longestCommonPrefix(String[] strs){
@@ -7,46 +10,32 @@ public class Solution {
 
         //flower,flow,flight
 
-        String prefix = "";
-        //Un auxiliar para ayudarme
-        String aux = "";
-        int iteratorLetras=0;
+        StringBuilder prefix = new StringBuilder();
+        //Una lista auxiliar para ayudarme
+        List<String> listaAuxiliar = new ArrayList<String>();
+        //boolean
 
         //bucle para cada palabra
         for(int i=0;i<strs.length;i++) {
 
-            String word = strs[i];
-            //flower
-
-            //Agarro la priemera letra
-            String firstLetter;
+            String word= strs[i];
 
 
-            //Agarro la primera letra
-            firstLetter=""+word.charAt(iteratorLetras);
+            for(int letraPos=0;letraPos<word.length();letraPos++) {
 
-            //Si el auxiliar no tiene nada (osea estoy en el primer bucle le proporciono el valor del firstLetter)
-            if(aux.isEmpty()) aux=firstLetter;
-            //Si tiene algo entonces lo comparo el auxiliar con la firstLetter de la nueva palabra
-            else{
+                if(i==0){
+                     listaAuxiliar.add(""+word.charAt(letraPos));
+                }else{
 
-                //Si el auxiliar con el firstLetter
-                if(aux==firstLetter){
-                    aux=firstLetter;
+                    if(listaAuxiliar.get(letraPos) .contentEquals(""+word.charAt(letraPos))){
 
-                    //Si estamos en la última palabra
-                    if(i==strs.length-1){
-                        prefix+=aux;
+                        prefix.append(word.charAt(letraPos));
 
-                        iteratorLetras++;
-                        //Aquí deberíamos hacer que el bucle for vuelva al inicio pero ahora con el nuevo iterator para seguir comparando
 
+
+                    }else{
+                        break;
                     }
-
-                }
-                //Si son distintos rompo el bucle
-                else{
-                    break;
                 }
 
             }
@@ -54,6 +43,6 @@ public class Solution {
 
         }
 
-        return prefix;
+        return prefix.toString();
     }
 }
