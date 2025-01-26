@@ -9,40 +9,46 @@ public class Solution {
 
 
         //flower,flow,flight
+        //Hacemos que el prefix obtenga el valor de la primera palabra
+        String prefix=strs[0];
 
-        StringBuilder prefix = new StringBuilder();
-        //Una lista auxiliar para ayudarme
-        List<String> listaAuxiliar = new ArrayList<String>();
-        //boolean
 
         //bucle para cada palabra
-        for(int i=0;i<strs.length;i++) {
+        for(String word: strs) {
 
-            String word= strs[i];
+            //prado
+            //pro
 
+            //Si la palabra tiene mas letras la reducimos al mismo tamaño del prefix
+            if(word.length()>=prefix.length()) {
+                word=word.substring(0,prefix.length());
+            }//Si la palabra tiene menos digitos entonces hacemos que el prefix tenga la misma cantidad
+            else{
+                prefix=prefix.substring(0,word.length());
+            }
 
-            for(int letraPos=0;letraPos<word.length();letraPos++) {
+            //Ir comparando (cómo hago esto...?)
 
-                if(i==0){
-                     listaAuxiliar.add(""+word.charAt(letraPos));
-                }else{
+            for(int i = 0; i < prefix.length(); i++) {
 
-                    if(listaAuxiliar.get(letraPos) .contentEquals(""+word.charAt(letraPos))){
-
-                        prefix.append(word.charAt(letraPos));
-
-
-
-                    }else{
-                        break;
-                    }
+                if(prefix.charAt(i)!=word.charAt(i)) {
+                    prefix=prefix.substring(0,i);
                 }
 
+                if(prefix.isEmpty()){
+                    break;
+                }
+            }
+
+
+            //Si ya no hay nada mas que comparar rompemos el bucle
+            if(prefix.isEmpty()) {
+                break;
             }
 
 
         }
 
-        return prefix.toString();
+        return prefix;
     }
 }
