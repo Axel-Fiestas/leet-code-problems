@@ -1,51 +1,36 @@
 package Easy.ValidParentheses;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
 public class Solution {
 
     public boolean isValid(String s){
 
-        boolean valid = true;
+        Stack<Character> stack = new Stack<>();
 
-        for (int i = 0; i < s.length(); i++) {
+        Map<Character,Character> map = new HashMap<>();
 
-            if(s.charAt(i) == '(' ){
-                if(s.charAt(s.length()-i)==')'){
-                    i++; //sale a la siguiente
-                    return true;
-                }else{
-                    valid = false;
-                    break;
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+
+        for(char c : s.toCharArray()){
+
+            if(map.containsValue(c)){
+                stack.push(c);
+            }else{
+
+                if(stack.isEmpty() || stack.pop() != map.get(c)){
+                    return false;
                 }
+
             }
-
-
-            if(s.charAt(i) == '{' ){
-                if(s.charAt(s.length()-i)=='}'){
-
-                    i++; //sale a la siguiente
-                    return true;
-                }else{
-                    valid = false;
-                    break;
-                }
-            }
-
-            if(s.charAt(i) == '[' ){
-                if(s.charAt(s.length()-i)==']'){
-
-                    i++; //sale a la siguiente
-                    return true;
-                }else{
-                    valid = false;
-                    break;
-                }
-            }
-
-
 
         }
 
-        return valid;
+        return stack.isEmpty();
     }
 
 
